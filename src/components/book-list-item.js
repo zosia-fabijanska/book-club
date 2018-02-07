@@ -1,12 +1,11 @@
 import React from 'react';
 
-const BookListItem = ({ book }) => {
-    console.log(book);
+const BookListItem = ({ book, onBookSelect }) => {
     const imageURL = book.volumeInfo.imageLinks.smallThumbnail;
     const title = book.volumeInfo.title;
     const author = book.volumeInfo.authors;
     return (
-        <li>
+        <li onClick ={ () => onBookSelect(book)} >
             <div className="list-group-item">
                 <div className = "media-left">
                     <img src={ imageURL } />

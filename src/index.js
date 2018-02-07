@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import GBSearch from 'google-books-search';
 import SearchBar from './components/search-bar';
 import BookList from './components/book-list';
+import BookDetail from './components/book-detail';
 
 const API_KEY = 'AIzaSyArze3-WTqWExDr4fdaHhER1-C7_Y1BY38';
 
@@ -12,7 +13,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            books:[]
+            books:[],
+            selectedBook: null
         };
     } 
 
@@ -21,7 +23,10 @@ class App extends Component {
         `).then(response =>{
             if (response.ok) {
                 response.json().then(books => {
-                  this.setState({ books: books.items });
+                  this.setState({ 
+                      books: books.items,
+                      selectedBook: books.items[0] 
+                     });
                 });
             }
         });
@@ -33,7 +38,10 @@ class App extends Component {
         <div>
             <p> Search Books</p>
             <SearchBar/>
-            <BookList books={ this.state.books } />
+            <BookDetail book={ this.state.selectedBook } />
+            <BookList 
+            onBookSelect = { selectedBook => this.setState({selectedBook}) }
+            books ={ this.state.books } />
         </div>
         )
     }
