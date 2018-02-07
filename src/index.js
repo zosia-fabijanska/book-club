@@ -22,7 +22,6 @@ class App extends Component {
             if (response.ok) {
                 response.json().then(books => {
                   this.setState({ books: books.items });
-                  
                 });
             }
         });
